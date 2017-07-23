@@ -14,6 +14,20 @@ define(['jquery', 'template', 'cookie'], function ($, template) {
       var userInfo = JSON.parse($.cookie("userInfo"));
       var html = template('userInfo-tpl', userInfo);
       $('#profile').append(html);
+
+      //退出登录功能的实现
+      var btn = $('.navbar-right').children('li').eq(2);
+      btn.on('click', function () {
+        $.ajax({
+          url: '/api/logout',
+          type: 'post',
+          success: function (data) {
+            if (data.code == 200) {
+              location.href = '/dashboard/login';
+            }
+          }
+        })
+      })
     }
   })
 })
