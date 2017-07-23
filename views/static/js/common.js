@@ -1,8 +1,9 @@
 define(['jquery', 'template', 'cookie'], function ($, template) {
   $(function () {
+    var pathname = location.pathname;
 
     //判断用户当前在哪个页面,如果不在登录界面才执行这段代码
-    if (location.pathname != '/dashboard/login') {
+    if (pathname != '/dashboard/login') {
 
       //判断用户登录没登录
       if (!$.cookie('PHPSESSID')) {
@@ -28,6 +29,27 @@ define(['jquery', 'template', 'cookie'], function ($, template) {
           }
         })
       })
+
+      //实现导航栏交互效果
+      $('.navs>ul>li>ul').parent().click(function () {
+        $(this).children('ul').slideToggle();
+      })
+
+      //导航栏高亮处理
+
+      if (pathname == '/') {
+        pathname = '/dashboard/index';
+      }
+      //获取和地址匹配的菜单项
+      var activeA = $('.navs a[href="' + pathname + '"]');
+      //添加active类
+      activeA.addClass('active');
+
+      //判断当前菜单栏是否是一个二级菜单栏，如果是就要让二级菜单打开
+      var activeUl = activeA.parent().parent();
+      if (activeUl.siblings('a').length == 1) {
+        activeUl.show();
+      }
     }
   })
 })
