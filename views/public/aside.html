@@ -46,7 +46,11 @@
 
 <script type='text/template' id='userInfo-tpl'>
   <div class="avatar img-circle">
+    {{if tc_acatar}}
     <img src={{tc_avatar}}>
+    {{else}}
+    <img src='/views/static/images/1-small.jpg'>
+    {{/if}}
   </div>
   <h4>{{tc_name}}</h4>
 </script>

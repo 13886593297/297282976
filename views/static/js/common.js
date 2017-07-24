@@ -1,5 +1,17 @@
-define(['jquery', 'template', 'cookie'], function ($, template) {
+define(['jquery', 'template', 'nprogress', 'cookie'], function ($, template, NProgress) {
   $(function () {
+    //给所有的页面都添加进度条功能
+    NProgress.start();
+    NProgress.done();
+    //发送ajax的时候也加载
+    $(document).ajaxStart(function () {
+      NProgress.start();
+    });
+    $(document).ajaxStop(function () {
+      NProgress.done();
+    });
+
+
     var pathname = location.pathname;
 
     //判断用户当前在哪个页面,如果不在登录界面才执行这段代码
